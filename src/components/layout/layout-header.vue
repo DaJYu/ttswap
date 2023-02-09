@@ -80,7 +80,7 @@
 				category: [],
 				mobileShow: false,
 				userKey: null,
-                language: this.$i18n.locale,
+                language: '',
 			}
 		},
 		computed: {
@@ -91,13 +91,7 @@
 		created() {
 
 			this.userKey = sessionStorage.getItem('userKey')
-			// let geturl = window.location.href
-			// let getqyinfo = geturl.split('/')[4]
-			// if (getqyinfo === '') {
-			// 	getqyinfo = 'home'
-			// }
-			// this.menuClick(getqyinfo)
-			// console.log(getqyinfo) 
+            this.languageSwitching(this.$i18n.locale);
 		},
 		mounted() {
 			window.addEventListener('scroll', this.watchScroll)
@@ -179,10 +173,19 @@
 				this.nowIndex = key
 			},
 			handleCommand(command) {
-				this.$i18n.locale = command;
-                this.language=command
+				this.languageSwitching(command);
                 this.fetchCategory()
 			},
+            languageSwitching(locale){
+				this.$i18n.locale = locale;
+                let language= this.$t('language');
+                for (let i of language) {
+                // console.log(i,locale)
+                    if(i.id===locale){
+                        this.language=i.name
+                    }
+                }
+            },
 			clickPer() {
 				nowIndex: 0
 			}
