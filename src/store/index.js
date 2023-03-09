@@ -7,6 +7,8 @@ import {
 	fetchSocial,
 	fetchSiteInfo
 } from '@/api'
+import i18n from '@/i18n/';
+Vue.use(Vuex)
 
 Vue.use(Vuex)
 // 略:后台获取系统运行时间
@@ -14,12 +16,16 @@ const runAt = '1589878800000';
 let timer = null;
 const state = {
 	loading: false,
+    i18nLocale:i18n.locale,
 	runTimeInterval: '',
 	socials: '',
 	yPrice: '',
 	websiteInfo: ''
 }
 const mutations = {
+	SET_I18: (state, v) => {
+		state.i18nLocale = v;
+	},
 	SET_LOADING: (state, v) => {
 		state.loading = v;
 	},
@@ -42,6 +48,11 @@ const mutations = {
 	}
 }
 const actions = {
+	setI18nLocale: ({
+		commit
+	}, v) => {
+		commit('SET_I18', v);
+	},
 	setLoading: ({
 		commit
 	}, v) => {
@@ -95,6 +106,7 @@ const actions = {
 	}
 }
 const getters = {
+	i18nLocale: state => state.i18nLocale,
 	loading: state => state.loading,
 	runTimeInterval: state => state.runTimeInterval,
 	notice: state => state.websiteInfo ? state.websiteInfo.notice : ''

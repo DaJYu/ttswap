@@ -175,6 +175,7 @@
 			handleCommand(command) {
 				this.languageSwitching(command);
                 this.fetchCategory()
+                this.$store.dispatch('setI18nLocale',command)
 			},
             languageSwitching(locale){
 				this.$i18n.locale = locale;
